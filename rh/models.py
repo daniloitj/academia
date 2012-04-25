@@ -70,7 +70,19 @@ class Aluno(PessoaFisica):
     def get_absolute_url(self):
         return '%d/'%self.id
 
-		
+class Professor(PessoaFisica):
+    """ Classe responssavel pela definicao de Aluno.
+	Filha da Classe PessoaFisica
+    """
+    class Meta:
+        verbose_name = u'Professor' 
+        verbose_name_plural = u'Professor' 
+        db_table = 'Professor'		
+    def __unicode__(self):
+         return self.pessoa.nome + ' ' + self.sobrenome + '  -------- CPF:  ' + self.cpf
+
+    def get_absolute_url(self):
+        return '%d/'%self.id		
 
 
 

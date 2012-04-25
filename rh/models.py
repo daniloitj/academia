@@ -15,6 +15,7 @@ class Pessoa(models.Model):
 	Apresenta como chave o id, nome e email.
     """
     class Meta:
+        abstract = True
         db_table = "Pessoa"
         ordering = ('nome',)
         unique_together = (('nome', 'email'),)			
@@ -39,14 +40,13 @@ class Pessoa(models.Model):
     def get_absolute_url(self):
         return 'pessoa/%d/'%self.id
 
-class PessoaFisica(models.Model):
+class PessoaFisica(Pessoa):
     """ Classe abstrata, que herda caracateristicas da Classe Pessoa,
 	fornece uma especificacao para Pessoas Fisicas envolvidas com o sistema.
     """
     class Meta:
         abstract = True
-        unique_together = (('pessoa', 'cpf','rg'),)		
-    pessoa = models.ForeignKey('Pessoa', unique=True)		
+        unique_together = (('pessoa', 'cpf','rg'),)			
     sobrenome = models.CharField(max_length=100)
     genero = models.CharField(max_length=20,choices=GENERO,blank=True)
     cpf = models.CharField(max_length=100, unique=True)
